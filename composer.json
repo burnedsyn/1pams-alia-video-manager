@@ -1,0 +1,26 @@
+{
+    "name": "1pams/alia-vms-plugin",
+    "description": "A WordPress and WooCommerce plugin for downloading, transcoding, and uploading Vimeo videos to OVH public cloud object storage.",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.4",
+        "vimeo/vimeo-api": "^3.0",
+        "aminyazdanpanah/php-ffmpeg-video-streaming": "^1.0",
+        "php-ffmpeg/php-ffmpeg": "^0.18",
+        "guzzlehttp/guzzle": "^7.7",
+        "aws/aws-sdk-php": "^3.271"
+    },
+    "autoload": {
+        "psr-4": {
+            "AliaVmsPlugin\\": "includes/"
+        }
+    },
+    "minimum-stability": "stable"
+
+
+
+    
+       
+ 
+}
