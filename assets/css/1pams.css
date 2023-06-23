@@ -1,0 +1,27 @@
+.timeline-item {
+    cursor: pointer;
+  }
+  
+  .timeline-item .timeline-body {
+    display: none;
+  }
+  
+  .timeline-item.active .timeline-body {
+    display: block;
+  }
+  
+  .timeline-item.start {
+    background-color: rgb(0, 166, 255);
+    color: beige;
+  }
+  
+  .timeline-item.done {
+    background-color: green;
+    color: beige;
+  }
+  
+  .timeline-item.error {
+    background-color: red;
+    color: beige;
+  }
+  

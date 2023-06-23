@@ -1,0 +1,6 @@
+2023-06-14 10:47:53,567 INFO: Start conversion: /var/www/clients/client0/web2/web/wp-content/uploads/video_upload/tete/timi1.mp4 to /var/www/clients/client0/web2/web/wp-content/uploads/video_upload/tete/timi1_1080p_libx264.mp4
+2023-06-14 10:47:53,569 INFO: Start conversion: /var/www/clients/client0/web2/web/wp-content/uploads/video_upload/tete/timi1.mp4 to /var/www/clients/client0/web2/web/wp-content/uploads/video_upload/tete/timi1_720p_libx264.mp4
+2023-06-14 10:49:56,510 INFO: Conversion done: /var/www/clients/client0/web2/web/wp-content/uploads/video_upload/tete/timi1.mp4 to /var/www/clients/client0/web2/web/wp-content/uploads/video_upload/tete/timi1_720p_libx264.mp4
+2023-06-14 10:49:56,511 INFO: Start conversion: /var/www/clients/client0/web2/web/wp-content/uploads/video_upload/tete/timi1.mp4 to /var/www/clients/client0/web2/web/wp-content/uploads/video_upload/tete/timi1_480p_libx264.mp4
+2023-06-14 10:50:51,503 INFO: Conversion done: /var/www/clients/client0/web2/web/wp-content/uploads/video_upload/tete/timi1.mp4 to /var/www/clients/client0/web2/web/wp-content/uploads/video_upload/tete/timi1_480p_libx264.mp4
+2023-06-14 10:51:34,393 INFO: Conversion done: /var/www/clients/client0/web2/web/wp-content/uploads/video_upload/tete/timi1.mp4 to /var/www/clients/client0/web2/web/wp-content/uploads/video_upload/tete/timi1_1080p_libx264.mp4
