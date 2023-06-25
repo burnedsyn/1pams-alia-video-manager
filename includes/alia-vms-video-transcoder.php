@@ -59,7 +59,7 @@ class Alia_VMS_Transcoder
         ]);
 
         // Execute the Python script as a separate process
-        $pythonScript = dirname(__FILE__) . "/transcoder3.py";
+        $pythonScript = dirname(__FILE__) . "/transcoder4.py";
         // echo $pythonScript;
 
         $command = "python3 $pythonScript '$inputJson'  > /dev/null 2>&1 &";
