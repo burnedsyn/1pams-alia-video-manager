@@ -39,19 +39,10 @@ class VideoProductUploader
         $product->set_date_created($current_date);
         $product_id = $product->save();
         // Save the base file in the upload directory
-        $file_path2 = $this->save_base_file($file, $product_id);
+        $file_path = $this->save_base_file($file, $product_id);
 
         // Transcode video and upload to OVH Object Storage
-        $bucketdata = $this->transcode_and_upload($file_path2, $product_id);
-
-        //parse s3 data back from upload
-        // Set product thumbnail
-        $file_path = $file_path2.'/thumbnail.jpg'; // Replace with the actual path to the uploaded file
-        $attachment_id = $this->add_product_thumbnail_to_library($file_path);
-        if ($attachment_id) {
-            $product->set_image_id($attachment_id);
-             
-        }
+        $bucketdata = $this->transcode_and_upload($file_path, $product_id);
 
         $directory_url = $bucketdata;
 
@@ -71,41 +62,13 @@ class VideoProductUploader
         return $directory_url;
     }
 
-    private function add_product_thumbnail_to_library($file_path) {
-        // Check if the file exists
-        if (file_exists($file_path)) {
-            // Prepare the attachment data
-            $file_name = basename($file_path);
-            $file_type = wp_check_filetype($file_name, null);
-    
-            $attachment = array(
-                'guid' => $file_name,
-                'post_mime_type' => $file_type['type'],
-                'post_title' => preg_replace('/\.[^.]+$/', '', $file_name),
-                'post_content' => '',
-                'post_status' => 'inherit'
-            );
-    
-            // Insert the attachment into the media library
-            $attachment_id = wp_insert_attachment($attachment, $file_path);
-    
-            // Generate attachment metadata
-            require_once ABSPATH . 'wp-admin/includes/image.php';
-            $attachment_data = wp_generate_attachment_metadata($attachment_id, $file_path);
-            wp_update_attachment_metadata($attachment_id, $attachment_data);
-    
-            return $attachment_id;
-        }
-    
-        return false;
-    }
 
 
     // Method to save the base file
     private function save_base_file($file, $product_id)
     {
         $upload_dir = wp_upload_dir();
-        $title = get_the_title($product_id);
+        $title =get_the_title($product_id);
         $test = $upload_dir['basedir'] . '/video_upload/' . $title;
         $base_dir = trailingslashit($test);
 
@@ -219,40 +182,59 @@ function video_upload_page()
         $transcoder->handle_video_upload($files,  $titles, $descriptions, $prices);
     } else {
         // Display upload form
-        if (!isset($_GET['conversion']) && !isset($_GET['upload'])) {
-?>
-            <form method="post" enctype="multipart/form-data">
-                <label for="video_files">Video Files:</label>
-                <input type="file" name="video_files" id="video_files" multiple><br>
+        ?>
+<div class="card">
+  <div class="card-header bg-navy text-white">
+    <h3 class="card-title">Add new video</h3>
+  </div>
+  <div class="card-body">
+    <?php
+    if (!isset($_GET['conversion']) && !isset($_GET['upload'])) {
+    ?>
+    <form method="post" enctype="multipart/form-data">
+      <div class="form-group bg-navy text-white">
+        <label for="video_files">Video Files:</label>
+        <input type="file" name="video_files" id="video_files" class="form-control-file">
+      </div>
+      <div class="form-group  bg-navy text-white">
+        <label for="video_titles">Titles:</label>
+        <input type="text" name="video_titles" id="video_titles" class="form-control">
+      </div>
+      <div class="form-group bg-navy text-white">
+        <label for="video_descriptions">Descriptions:</label>
+        <?php
+        $content = ''; // The initial content for the rich editor
+        $editor_id = 'video_descriptions'; // The ID of the textarea
 
-                <!-- <label for="video_resolutions">Resolutions:</label>
-                <input type="text" name="video_resolutions" id="video_resolutions" multiple><br> -->
+        // Arguments for the wp_editor() function
+        $settings = array(
+          'textarea_name' => 'video_descriptions', // The name attribute of the textarea
+          'textarea_rows' => 5, // The number of rows for the textarea
+          'media_buttons' => false, // Hide media buttons
+          'editor_class' => 'wp-editor-container',//custom css class
+        );
 
-                <label for="video_titles">Titles:</label>
-                <input type="text" name="video_titles" id="video_titles" multiple><br>
+        // Output the rich editor
+        wp_editor($content, $editor_id, $settings);
+        ?>
+      </div>
+      <div class="form-group bg-navy text-white">
+        <label for="video_prices">Prices:</label>
+        <input type="text" name="video_prices" id="video_prices" class="form-control">
+      </div>
+      <div class="form-group">
+        <input type="submit" name="submit" value="Upload" class="btn btn-primary">
+      </div>
+    </form>
+    <?php
+    }
+    ?>
+  </div>
+</div>
 
-                <label for="video_descriptions">Descriptions:</label>
-                <!--<textarea name="video_descriptions" id="video_descriptions" multiple></textarea><br> -->
-                <?php
-                $content = ''; // The initial content for the rich editor
-                $editor_id = 'video_descriptions'; // The ID of the textarea
 
-                // Arguments for the wp_editor() function
-                $settings = array(
-                    'textarea_name' => 'video_descriptions', // The name attribute of the textarea
-                    'textarea_rows' => 5, // The number of rows for the textarea
-                    'media_buttons' => false, // Hide media buttons
-                );
-
-                // Output the rich editor
-                wp_editor($content, $editor_id, $settings);
-                ?>
-                <label for="video_prices">Prices:</label>
-                <input type="text" name="video_prices" id="video_prices" multiple><br>
-
-                <input type="submit" name="submit" value="Upload">
-            </form>
+        
 <?php
         }
     }
-}
+

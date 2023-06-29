@@ -1,27 +1,58 @@
-.timeline-item {
-    cursor: pointer;
-  }
-  
-  .timeline-item .timeline-body {
-    display: none;
-  }
-  
-  .timeline-item.active .timeline-body {
-    display: block;
-  }
-  
-  .timeline-item.start {
-    background-color: rgb(0, 166, 255);
-    color: beige;
-  }
-  
-  .timeline-item.done {
-    background-color: green;
-    color: beige;
-  }
-  
-  .timeline-item.error {
-    background-color: red;
-    color: beige;
-  }
-  
+
+.card-item.start {
+  background-color: rgb(0, 166, 255);
+  color: beige;
+}
+
+.card-item.done {
+  background-color: green;
+  color: beige;
+}
+
+.card-item.error {
+  background-color: red;
+  color: beige;
+}
+
+
+
+.wp-editor-wrapper {
+  background-color: #006aff;
+  color: #ffffff; 
+  /* Add any additional styles here */
+}
+
+/* Custom styles for the WordPress editor */
+#wp-content-editor-container {
+background-color: #a3a1a1; /* Set the background color to a light gray */
+color: #000000; /* Set the text color to a dark gray */
+}
+
+/* Custom styles for the editor content area */
+#wp-content-editor-container .wp-editor-area {
+background-color: #006aff; /* Set the content area background color to white */
+color: #ffffff; /* Set the content area text color to a dark gray */
+}
+
+.content {
+  overflow-x: hidden;
+}
+
+.card {
+  width: 100%;
+  overflow: hidden;
+}
+
+.card-body {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 10px;
+  overflow-x: auto;
+}
+
+.card-item {
+  flex: 0 0 auto;
+  margin-right: 10px;
+  white-space: normal;
+  width: 250px; /* Adjust the width as per your requirements */
+}

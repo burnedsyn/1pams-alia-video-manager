@@ -45,9 +45,11 @@ class AliaVms
         add_action('admin_menu', array($this, 'add_alia_vms_submenu'));
         add_action('plugins_loaded', array($this, 'alia_vms_load_textdomain'));
         // Add custom product type filter
-        add_filter('woocommerce_product_types', array($this, 'custom_product_type'));
+       //add_filter('woocommerce_product_types', array($this, 'custom_product_type'));
         add_action('init',array($this,'sess_start'));
-        add_action('init', array($this,'register_video_file_post_type'));
+       // add_action('init', array($this,'register_video_file_post_type'));
+        add_filter('woocommerce_get_query_vars', array($this, 'add_video_library_endpoint'));
+
     
     }
     function sess_start() {

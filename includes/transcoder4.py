@@ -43,7 +43,8 @@ def generate_thumbnail(input_file, thumbnail_path):
 
     # Use FFmpeg to extract the thumbnail
     thumbnail_time = "00:00:05"  # Specify the time for the thumbnail (e.g., 5 seconds)
-    ffmpeg_cmd = f"ffmpeg -i {input_file} -ss {thumbnail_time} -vframes 1 {thumbnail_path}"
+    ffmpeg_cmd = f'ffmpeg -i "{input_file}" -ss {thumbnail_time} -vframes 1 "{thumbnail_path}"'
+
     try:
         subprocess.call(ffmpeg_cmd, shell=True)
         logger.info(f"Thumbnail generated: {thumbnail_path}")
@@ -65,8 +66,8 @@ def encode_video(args):
     logger.info(f"Conversion:start: {input_file} to {output_file}")
 
     input_args = (
-        f"-i {input_file} -c:v {codec} -b:v {resolution['bitrate']}k "
-        f"-vf scale=w={get_width(resolution['resolution'])}:h={get_height(resolution['resolution'])} {output_file}"
+        f"-i \"{input_file}\" -c:v {codec} -b:v {resolution['bitrate']}k "
+        f"-vf scale=w={get_width(resolution['resolution'])}:h={get_height(resolution['resolution'])} \"{output_file}\""
     )
     ffmpeg_cmd = f"ffmpeg -y {input_args}"
 
@@ -140,13 +141,13 @@ def generate_hls_or_dash(input_file, output_formats, is_hls=True):
 
             # Generate the command to create the playlist and video chunks
             args = (
-                f"-i {input_file} -c:v {codec} -b:v {resolution['bitrate']}k "
+                f"-i \"{input_file}\" -c:v {codec} -b:v {resolution['bitrate']}k "
                 f"-vf scale=w={get_width(resolution['resolution'])}:h={get_height(resolution['resolution'])} "
             )
             if is_hls:
-                args += f"-hls_time 10 -hls_list_size 0 -f hls {output_file}"
+                args += f"-hls_time 10 -hls_list_size 0 -f hls \"{output_file}\""
             else:
-                args += f"-dash 1 -hls_playlist 0 {output_file}"
+                args += f"-dash 1 -hls_playlist 0 \"{output_file}\""
 
             ffmpeg_cmd = f"ffmpeg -y {args}"
 
