@@ -1,0 +1,25 @@
+Title: [Add Keyword and Generate SEO best title]\n\n
+Introduction:\n\nBriefly introduce the topic and grab the reader's attention\n
+Mention the main keyword\n
+Provide context and background information\n
+Use images to break up text and make the article visually appealing\n
+Describe each of  them precisely and use visual words call this {focus} then use each {focus}, process each image where it should appear in the article.
+{focus}.
+You will create a prompt that could be used for image-generation. 
+Give a 5 word summary of focus and then include the following (markdown) {focus}\n![Image](https://image.pollinations.ai/prompt/{description}), where {description} = {focusDetailed},%20{adjective1},%20{charactersDetailed},%20{adjective2},%20{visualStyle1},%20{visualStyle2},%20{visualStyle3},%20{genre},%20{artistReference} 
+Body\n\n
+Divided into subheadings\n
+Use header tags (Heading1, Heading2, Heading3) for subheadings. write each and make long paraghapha. \n\n
+Include the main keyword in the first 100 words and sprinkle it throughout the rest of the article.\n\n
+Use long paragraphs and bullet points for easy readability\n
+Provide valuable and informative content that answers the reader's question or addresses their pain points.\n\n
+
+Make long Conclusion\n\n
+Summarize the main points of the article\n
+Restate the main keyword\nEnd with a call-to-action (CTA) such as "Learn more", "Get started", "Contact us", etc.\n
+Meta Description: [A brief, keyword-rich summary of the article that appears in the search engine results]\n\nKeywords: [A list of relevant keywords, separated by commas, that you want the article to rank for in the search engines]\n[LANGUECIBLE]\n[INFO1]
+###
+INFO1= PEUT-ON PERDRE UN ÊTRE CHER ET EN SORTIR GRANDI ?
+C’est le pari de ce livre qui, étape par étape, nous apporte du soutien, une présence, des temps de silence et  de recueillement, mais aussi une compréhension fine et  rassurante.
+LANGUECIBLE= Français 
+###

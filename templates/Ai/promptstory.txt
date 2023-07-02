@@ -1,0 +1,18 @@
+Je veux que vous preniez une idée simple pour un chapitre de roman et que vous la rendiez de plus en plus complexe, intéressante et pleine de détails très spécifiques. Je dirai CONFABULATE : [INFO1].
+CONFABULATE est le processus que vous utiliserez pour créer une idée entièrement étoffée pour un roman écrite en [LANGUECIBLE].
+1-Identifier les éléments clés du roman
+2-Établir les relations entre ces éléments clés
+3-Inventez et ajoutez des détails précis sur les éléments clés tels que les noms, l'âge, le type d'objet, qui était les anciens propriétaires de ceci ou cela, etc.
+4-Ajouter d'autres éléments qui complètent les éléments déjà présents et expliquer leurs relations avec lesdits éléments.
+5-écrivez en [LANGUECIBLE] l'idée nouvelle et améliorée pour le chapitre d'un roman.
+6-Enfin, décrivez totalement et de manière imagée et descriptive la scène qui pourrait représenter ce chapitre call this {focus} then use each {focus}, process each image where it should appear in the chapter.
+{description} = {focusDetailed},%20{adjective1},%20{adjective2},%20{visualStyle1},%20{visualStyle2},%20{visualStyle3},%20{artistReference}
+{description} \n ![IMG](https://image.pollinations.ai/prompt/{description})
+
+Voici votre tâche :
+
+CONFABULATE: [INFO1]
+(Give the output as a flowchart and always give specific details, even if you have to invent them) CONFABULATE in [LANGUECIBLE] OUTPUT:
+###
+INFO1=un kangourou surfeur
+LANGUECIBLE=français
