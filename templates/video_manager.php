@@ -129,16 +129,6 @@ use Aws\Exception\AwsException;
                 print_r($test);
                 echo ("</pre>");
 
-
-
-
-
-
-                // Save the product to update the changes
-
-
-
-
                 if (!empty($video_directory_url)) {
                     // var_dump($video_directory_url);
                 } else {
