@@ -2,7 +2,7 @@
 // 1pams-vms/includes/alia-vms-upcloud.php
 
 require_once ALIA_VMS_PLUGIN_PATH . '/vendor/autoload.php';;
-require_once '/var/www/clients/client0/web2/web/wp-content/plugins/1pams-alia-video-manager/includes/alia-vms-api.php';
+require_once ALIA_VMS_PLUGIN_PATH.'/includes/alia-vms-api.php';
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;

@@ -158,7 +158,7 @@ class Alia_VMS_Transcoder
 
         $viewlog=$this->get_vidStatus($outputDir);
         echo $viewlog;
-        echo("<a href='https://demo1.1proamonservice.be/wp-admin/admin.php?page=alia-vms-video&tab=tab1&conversion=".$_GET['conversion']."'> View status</a>");
+        echo("<a href=home_url().'/wp-admin/admin.php?page=alia-vms-video&tab=tab1&conversion=".$_GET['conversion']."'> View status</a>");
             FIN MODIF LAST */
         /* foreach ($this->outputFormats as $format) {
             foreach ($format['resolutions'] as $resolution) {
@@ -201,7 +201,7 @@ class Alia_VMS_Transcoder
         <div class="timeline">
             <div class="timeline-header">
                 <h3 class="timeline-title">Process product <?= $pamsdata ?></h3>
-                <?php echo ("<a href='https://demo1.1proamonservice.be/wp-admin/admin.php?page=alia-vms-video&tab=tab1&conversion=" . $outputDir . "'> View status</a>"); ?>
+                <?php echo ("<a href=home_url().'/wp-admin/admin.php?page=alia-vms-video&tab=tab1&conversion=" . $outputDir . "'> View status</a>"); ?>
             </div>
         <?php
         $result=array();

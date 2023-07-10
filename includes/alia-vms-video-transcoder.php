@@ -39,14 +39,53 @@ class Alia_VMS_Transcoder
     }
 
 
+    public function transcode_vimeo_import($inputFile, $product_id){
+        //create the log file
+        $outputDir = dirname($inputFile);
+        $outputlog = pathinfo($inputFile, PATHINFO_DIRNAME) . '/1pams.log';
+        
+        // Convert the PHP data to a JSON string
+        $inputJson = json_encode([
+            'input_file' => $inputFile,
+            'output_formats' => $this->outputFormats,
+            'product_id' => $product_id
+        ]);
+        // Execute the Python script as a separate process
+        $pythonScript = dirname(__FILE__) . "/transcoder4.py";
+        $descriptorspec = [
+            0 => ['pipe', 'r'], // stdin
+            1 => ['pipe', 'w'], // stdout
+            2 => ['pipe', 'w']  // stderr
+        ];
+        $command = "python3 $pythonScript '$inputJson'  > /dev/null 2>&1 &";
+        $process = proc_open($command, $descriptorspec, $pipes);
 
+        // Close the pipes to stdin, stdout, and stderr
+        fclose($pipes[0]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+
+        // Get the process ID
+        $pid = proc_get_status($process)['pid'];
+
+        // Close the process handle
+        proc_close($process);
+
+        // Continue with PHP script execution
+
+        file_put_contents($outputlog, "$product_id\n");
+
+        return $outputlog;
+
+
+    }
 
 
     public function transcode_video($inputFile, $product_id)
     {
         $outputDir = dirname($inputFile);
         $outputlog = pathinfo($inputFile, PATHINFO_DIRNAME) . '/1pams.log';
-
+        
 
 
 
@@ -64,6 +103,7 @@ class Alia_VMS_Transcoder
 
         $command = "python3 $pythonScript '$inputJson'  > /dev/null 2>&1 &";
         echo ("<br>$command");
+        
         $descriptorspec = [
             0 => ['pipe', 'r'], // stdin
             1 => ['pipe', 'w'], // stdout
@@ -86,8 +126,8 @@ class Alia_VMS_Transcoder
         // Continue with PHP script execution
 
         file_put_contents($outputlog, "$product_id\n");
-        sleep(10);
-        wp_redirect("https://demo1.1proamonservice.be/wp-admin/admin.php?page=alia-vms-video&tab=tab1&conversion=" . $outputDir);
+        sleep(5);
+        wp_redirect(home_url()."/wp-admin/admin.php?page=alia-vms-video&tab=tab1&conversion=" . $outputDir);
         exit;  // Make sure to exit after sending the redirect header
 
     }
@@ -234,8 +274,8 @@ class Alia_VMS_Transcoder
                     $timeLine["Process"]["outputDir"] = $outputDir;
                     $this->timeLine = $timeLine;
                     $_SESSION['data'] = $timeLine;
-                    wp_redirect('https://demo1.1proamonservice.be/wp-admin/admin.php?page=alia-vms-video&tab=tab1&upload=start');
-
+                    wp_redirect(home_url().'/wp-admin/admin.php?page=alia-vms-video&tab=tab1&upload=start');
+                    
                     return $timeLine;
                 }
 
@@ -261,13 +301,13 @@ class Alia_VMS_Transcoder
                 <!-- Operation: Process -->
 
                 <div class="card-item <?= $result['status'] ?>">
-                    <h3 class="card-header"><?= $index ?> : <?= $result['file'] ?></h3>
+                    <p class="card-header"><?= $index ?> : <?= $result['file'] ?></p>
                     <span class="time">Start : <?= isset($result['start']) ? $result['start'] : '' ?> End : <?= isset($result['end']) ? $result['end'] : '' ?>
                     </span>
                     <div class="card-body">
-                        <p>Product : <?= $result['product'] ?></p>
-                        <p>Video file : <?= $result['file'] ?></p>
-                        <h3>Status:<?= $result['status'] ?> </h3>
+                        <p>Product : <?= $result['product'] ?></p><br>
+                        <p>Video file : <?= $result['file'] ?></p><br>
+                        <p>Status:<?= $result['status'] ?> </p>
 
                     </div>
                 </div>
@@ -282,14 +322,14 @@ class Alia_VMS_Transcoder
                 <i class=\"fas fa-2x fa-sync-alt fa-spin\"></i>");
                 ?>
                     <div class="card-item <?= $value['status'] ?>">
-                        <h3 class="card-header"><?= $index ?> : <?= $res ?></h3>
+                        <p class="card-header"><?= $index ?> : <?= $res ?></p>
                         <span class="time">Start : <?= isset($value['start']) ? $value['start'] : '' ?> End : <?= isset($value['end']) ? $value['end'] : '' ?>
                         </span>
                         <div class="card-body">
-                            <h3>Status:<?= $value['status'] ?> </h3>
+                            <p>Status:<?= $value['status'] ?> </p>
                             <p>Video file : <?= $value['file'] ?></p>
 
-                            <p>Data : <?= isset($value['data']) ? $value['data'] : ''  ?></p>
+                            <!-- <p>Data : <?= isset($value['data']) ? $value['data'] : ''  ?></p> -->
 
                         </div>
                     </div>
@@ -304,11 +344,11 @@ class Alia_VMS_Transcoder
                 ?>
 
                     <div class="card-item <?= $value['status'] ?>">
-                        <h3 class="card-header">HLS <?= $res ?> </h3>
+                        <p class="card-header">HLS <?= $res ?> </p>
                         <span class="time">Start : <?= isset($value['start']) ? $value['start'] : '' ?> End : <?= isset($value['end']) ? $value['end'] : '' ?>
                         </span>
                         <div class="card-body">
-                            <h3>Status:<?= $value['status'] ?> </h3>
+                            <p>Status:<?= $value['status'] ?> </p>
 
                         </div>
                     </div>
@@ -325,11 +365,11 @@ if ($value['status'] =='start') echo("</div>");
                 ?>
 
                     <div class="card-item <?= $value['status'] ?>">
-                        <h3 class="card-header">DASH <?= $res ?> </h3>
+                        <p class="card-header">DASH <?= $res ?> </p>
                         <span class="time">Start : <?= isset($value['start']) ? $value['start'] : '' ?> End : <?= isset($value['end']) ? $value['end'] : '' ?>
                         </span>
                         <div class="card-body">
-                            <h3>Status:<?= $value['status'] ?> </h3>
+                            <p>Status:<?= $value['status'] ?> </p>
 
                         </div>
                     </div>

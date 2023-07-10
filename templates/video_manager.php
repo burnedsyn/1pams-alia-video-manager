@@ -1,7 +1,7 @@
 <?php
-require_once '/var/www/clients/client0/web2/web/wp-content/plugins/1pams-alia-video-manager/vendor/autoload.php'; // Load Composer autoloader
-require_once '/var/www/clients/client0/web2/web/wp-content/plugins/1pams-alia-video-manager/includes/alia-vms-api.php';
-require_once '/var/www/clients/client0/web2/web/wp-content/plugins/1pams-alia-video-manager/includes/alia-vms-video-product.php';
+require_once ALIA_VMS_PLUGIN_PATH.'/vendor/autoload.php'; // Load Composer autoloader
+require_once ALIA_VMS_PLUGIN_PATH.'/includes/alia-vms-api.php';
+require_once ALIA_VMS_PLUGIN_PATH.'/includes/alia-vms-video-product.php';
 
 $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'tab1';
 
@@ -37,8 +37,7 @@ use Aws\Exception\AwsException;
         switch ($active_tab) {
             case "tab1":
 
-
-               
+             
                 $test = video_upload_page();
 
                  /*DEBUTMDOFIF*/
@@ -79,7 +78,7 @@ use Aws\Exception\AwsException;
                         }
                         ksort($groupedArray);
 
-
+                       
                         /* echo ("<pre>");
                         print_r($groupedArray);
                         echo ("</pre>"); */
@@ -115,25 +114,19 @@ use Aws\Exception\AwsException;
                     $_SESSION['ovhs3'] = $groupedArray;
                     echo ("<span class=\"bg-success text-white\">Nouveau produit créer avec succès</span>");
                     sleep(10);
-                    wp_redirect("https://demo1.1proamonservice.be/wp-admin/admin.php?page=alia-vms-video&tab=tab1");
+                    wp_redirect(home_url()."/wp-admin/admin.php?page=alia-vms-video&tab=tab1");
                     exit;
                 }
                 /*FINMODIFI*/
                 break;
             case "tab2":
-                echo ("<h1>TAB2</h1>");
-                $product_id = 204;
-                $video_directory_url = get_post_meta($product_id, 'video_data', true);
-                $test = $_SESSION['ovhs3'];
-                echo ("<pre>");
-                print_r($test);
-                echo ("</pre>");
+                global $wp;
+                $url_parts = parse_url( home_url() );
+                $current_url =  $url_parts['scheme'] . "://" . $url_parts['host'] . add_query_arg( NULL, NULL );
+               
+                  
+                include_once('vidmanagertab2.php');
 
-                if (!empty($video_directory_url)) {
-                    // var_dump($video_directory_url);
-                } else {
-                    echo ("<h1>MERDE</h1>");
-                }
                 break;
         }
 

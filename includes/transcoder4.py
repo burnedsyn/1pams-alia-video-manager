@@ -20,7 +20,9 @@ def main():
     args_list = process_videos(input_file, output_formats, product_id)
     # Generate thumbnail
     thumbnail_path = os.path.join(os.path.dirname(input_file), "thumbnail.jpg")
+    audio_path = os.path.join(os.path.dirname(input_file), "audio.mp3")
     generate_thumbnail(input_file, thumbnail_path)
+    extract_audio(input_file, audio_path);
     with multiprocessing.Pool() as pool:
         output_files_list = pool.map(encode_video, args_list)
 
@@ -51,12 +53,25 @@ def generate_thumbnail(input_file, thumbnail_path):
     except Exception as e:
         logger.error(f"Failed to generate thumbnail: {str(e)}")
 
+def extract_audio(input_file, output_file):
+    # Set up logging
+    logging.basicConfig(filename='conversion.log', level=logging.INFO, format='%(asctime)s; %(levelname)s; %(message)s')
+    logger = logging.getLogger()
+
+    # Use FFmpeg to extract the audio
+    ffmpeg_cmd = f'ffmpeg -i "{input_file}" -vn -c:a libmp3lame -q:a 4  "{output_file}"'
+
+    try:
+        subprocess.call(ffmpeg_cmd, shell=True)
+        logger.info(f"Audio file extracted: {output_file}")
+    except Exception as e:
+        logger.error(f"Failed to extract audio: {str(e)}")
 
 def encode_video(args):
     input_file, output_format, resolution, codec, format = args
 
     output_file = os.path.join(os.path.dirname(input_file),
-                               f"{os.path.splitext(input_file)[0]}_{resolution['resolution']}_{codec}.{format}")
+    f"{os.path.splitext(input_file)[0]}_{resolution['resolution']}_{codec}.{format}")
     log_file = os.path.join(os.path.dirname(input_file), "conversion.log")
 
     # Configure logging

@@ -14,7 +14,12 @@
   color: beige;
 }
 
-
+.card-item.warning{
+  background-color: rgb(220, 113, 6);
+  color: beige;
+  width: 30%;
+  max-width:max-content;
+}
 
 .wp-editor-wrapper {
   background-color: #006aff;
@@ -38,21 +43,33 @@ color: #ffffff; /* Set the content area text color to a dark gray */
   overflow-x: hidden;
 }
 
-.card {
+.wrap .card {
   width: 100%;
+  max-width:max-content;
   overflow: hidden;
 }
 
 .card-body {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   padding-bottom: 10px;
   overflow-x: auto;
 }
 
+.vig{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 10px; 
+  width: 100%;
+  max-width:max-content;
+}
 .card-item {
-  flex: 0 0 auto;
-  margin-right: 10px;
+  
+  /*  flex: 0 0 auto;  */
+  /* margin-right: 10px; */
   white-space: normal;
-  width: 250px; /* Adjust the width as per your requirements */
+   /* Adjust the width as per your requirements */
+}
+.pams-spinner {
+  display:none;
 }
